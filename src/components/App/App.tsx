@@ -4,10 +4,39 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import * as classes from './App.module.scss';
+import cx from 'clsx';
+import { createTheme, ThemeProvider, useTheme  } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/styles';
+import { Typography } from '@material-ui/core';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize: 14,
+  },
+});
+
+const useStyles = makeStyles((theme) => {
+  return {
+    button: {
+      backgroundColor: 'red',
+      padding: 3,
+      cursor: 'pointer',
+    },
+    title: {
+      fontSize: '32px',
+    }
+  }
+});
 
 export const App = () => {
   const [count, setCount] = useState<number>(0);
+  const classes = useStyles();
+  // const theme = useTheme();
+
+
 
   const increment = () => {
     setCount(state => ++state);
@@ -26,19 +55,28 @@ export const App = () => {
   isPalindrome('A man, a plan, a canal: Panama');
 
   return (
-    <div>
-      <h1>PLATFORM={__PLATFORM__}</h1>
-      <Link to='/about'>about</Link>
-      <br />
-      <Link to='/shop'>shop</Link>
-      <h1 className={classes.title}>{count}</h1>
-      <button
-        className={classes.button}
-        onClick={increment}
-      >
-        inc
-      </button>
-      <Outlet />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container>
+        <div>
+          <Typography
+            variant='h3'
+          >
+            PLATFORM={__PLATFORM__}
+          </Typography>
+          <Link to='/about'>about</Link>
+          <br />
+          <Link to='/shop'>shop</Link>
+          <h1 className={classes.title}>{count}</h1>
+          <button
+            className={classes.button}
+            onClick={increment}
+          >
+            inc
+          </button>
+          <Outlet />
+        </div>
+      </Container>
+    </ThemeProvider>
   );
 }
