@@ -1,48 +1,24 @@
-import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, makeStyles } from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { Box, Button, CSSProperties, IconButton, List, ListItem, ListItemText, Typography } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { MyInput } from "../UI/MyInput";
 import { CodeModal } from "../CodeModal";
 import codeImg from './image.png';
 
-const useStyles = makeStyles((theme) => {
-  return {
-    stringBlock: {
-      padding: 8,
-      backgroundColor: '#d3d3d39c',
-    },
-    buttonsBlock: {
-      display: 'flex',
-      gap: 16,
-      paddingTop: 16,
-    }
-  }
-});
-
 export const Palindrome: React.FC = () => {
-  const classes = useStyles();
   const [string, setString] = useState('A man, a plan, a canal: Panama');
   const [cleaned, setCleaned] = useState('');
   const [isPalindrome, setIsPalindrome] = useState(false);
   const [palindromeList, setPalindromeList] = useState<string[]>([]);
-  
 
-  useEffect(() => {
-      // setIsPalindrome(checkPalindrome(string));
-      setIsPalindrome(checkPalindromeAlt(string));
-  }, [string]);
+  // const checkPalindrome = useMemo(() => {
+  //   const cleaned = string.toLowerCase().replace(/[^a-zа-я0-9]/g, '');
+  //   setCleaned(cleaned);
+  //   return cleaned === cleaned.split('').reverse().join('');
+  // }, [string]);
 
-  function checkPalindrome(str: string) {
-    const cleaned = str.toLowerCase().replace(/[^a-zа-я0-9]/g, '');
-    setCleaned(cleaned);
-    return cleaned === cleaned.split('').reverse().join('');
-  }
-
-  function checkPalindromeAlt(str: string) {
-    const cleaned = str.toLowerCase().replace(/[^a-zа-я0-9]/g, '');
+  const checkPalindrome = useMemo(() => {
+    const cleaned = string.toLowerCase().replace(/[^a-zа-я0-9]/g, '');
     setCleaned(cleaned);
     for (let i = 0; i < Math.floor(cleaned.length / 2); i++) {
       if (cleaned[i] !== cleaned[cleaned.length - 1 - i]) {
@@ -50,7 +26,11 @@ export const Palindrome: React.FC = () => {
       }
     }
     return true;
-  }
+  }, [string]);
+
+  useEffect(() => {
+      setIsPalindrome(checkPalindrome);
+  }, [checkPalindrome]);
 
   const deletePalindromeItem = (indx: number) => {
     setPalindromeList(state => {
@@ -60,19 +40,32 @@ export const Palindrome: React.FC = () => {
     });
   };
 
+  const stringBlock: CSSProperties = {
+    padding: 1,
+    backgroundColor: '#d3d3d39c',
+  };
+
+  const buttonsBlock: CSSProperties = {
+    display: 'flex',
+    gap: 2,
+    paddingTop: 2,
+  };
+
   return (
     <Box>
-      <Typography variant="h5">Проверка строки на палиндром</Typography>
+      <Typography variant="h4">Проверка строки на палиндром</Typography>
       <Box pt={1}>
         <MyInput
-          size='small'
-          placeholder='Введите строку для прверки'
+          label={string && 'Palindrom'}
+          placeholder='Введите строку для проверки'
           fullWidth
           value={string}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setString(e.target.value)}
+          error={!isPalindrome}
+          helperText={!isPalindrome && 'Строка не является палиндромом'}
         />
       </Box>
-      <Box className={classes.buttonsBlock}>
+      <Box sx={ buttonsBlock }>
         <Button
           variant="contained"
           color="primary"
@@ -98,7 +91,7 @@ export const Palindrome: React.FC = () => {
           <Typography sx={{ fontWeight: 'bold' }}>
             Так выглядет строка наоборот
           </Typography>
-          <Box className={classes.stringBlock}>
+          <Box sx={ stringBlock }>
             <Typography>
               {cleaned}
             </Typography>
@@ -111,16 +104,16 @@ export const Palindrome: React.FC = () => {
             {palindromeList.map((item, indx) => (
               <ListItem key={`${item}${indx}`}>
                 <ListItemText>
-                  {item}
+                  <Typography variant="h6">
+                    {item}
+                  </Typography>
                 </ListItemText>
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    onClick={() => deletePalindromeItem(indx)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  onClick={() => deletePalindromeItem(indx)}
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
               </ListItem>
             ))}
           </List>

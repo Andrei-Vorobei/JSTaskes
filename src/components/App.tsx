@@ -3,22 +3,22 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Outlet } from 'react-router';
-import { createTheme, ThemeProvider } from '@material-ui/core/';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
+import { createTheme, CSSProperties, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 import { NavBar } from './NavBar';
 
 const theme = createTheme({
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    fontSize: 16,
-    subtitle1: {
-      fontSize: 24
-    },
-    subtitle2: {
-      fontSize: 20
-    },
-  },
+  // typography: {
+  //   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  //   fontSize: 16,
+  //   subtitle1: {
+  //     fontSize: 24
+  //   },
+  //   subtitle2: {
+  //     fontSize: 20
+  //   },
+  // },
   // palette: {
   //   success: {
   //     main: '#2e7d32',
@@ -31,9 +31,11 @@ const theme = createTheme({
   // },
 });
 
-const containerStyles = {
-  backgroundColor: '#ffffffb8',
-  height: '100%',
+const containerStyles: CSSProperties = {
+  backgroundColor: '#ffffffc0',
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1
 };
 
 export const App: React.FC = () => {

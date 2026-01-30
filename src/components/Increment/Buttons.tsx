@@ -1,20 +1,4 @@
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => {
-  return {
-    buttonBlock: {
-      display: 'flex',
-      gap: 20,
-      flexDirection: 'column'
-    },
-    buttons: {
-      display: 'flex',
-      gap: 20
-    },
-  }
-});
+import { Box, Button, CSSProperties } from "@mui/material";
 
 type ButtonsType = {
   increment: ()=>void;
@@ -27,10 +11,21 @@ export const Buttons: React.FC<ButtonsType> = ({
   decrement,
   reset
 }) => {
-  const classes = useStyles();
+
+  const buttonBlock: CSSProperties = {
+    display: 'flex',
+    gap: 2,
+    flexDirection: 'column'
+  }
+
+  const buttons: CSSProperties = {
+    display: 'flex',
+    gap: 2
+  }
+
   return (
-    <Box className={classes.buttonBlock}>
-      <Box className={classes.buttons}>
+    <Box sx={ buttonBlock }>
+      <Box sx={ buttons }>
         <Button
           color='primary'
           variant='contained'

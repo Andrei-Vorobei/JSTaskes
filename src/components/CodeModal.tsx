@@ -1,20 +1,5 @@
+import { Box, Button, CSSProperties, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-
-const useStyles = makeStyles((theme) => {
-  return {
-    codeButton: {
-      paddingTop: 16,
-      display: 'flex',
-      justifyContent: 'end'
-    },
-    img: {
-      display: 'block',
-    },
-  }
-});
 
 type CodeModalType = {
   codeImg: string;
@@ -23,11 +8,20 @@ type CodeModalType = {
 export const CodeModal: React.FC<CodeModalType> = ({
   codeImg
 }) => {
-  const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
+  const codeButton: CSSProperties = {
+    paddingTop: 2,
+    display: 'flex',
+    justifyContent: 'end'
+  };
+
+  const imgStyles: CSSProperties = {
+    display: 'block',
+  };
+
   return (
-    <Box className={classes.codeButton}>
+    <Box sx={ codeButton }>
       <Button
         variant="outlined"
         onClick={() => setIsOpen(true)}
@@ -43,7 +37,7 @@ export const CodeModal: React.FC<CodeModalType> = ({
             Имплементация
           </DialogTitle>
           <DialogContent>
-            <img src={codeImg} className={classes.img} />
+            <img src={codeImg} style={ imgStyles } />
           </DialogContent>
         </Dialog>
     </Box>

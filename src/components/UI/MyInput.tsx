@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from "react";
-import { IconButton, InputAdornment, TextField, TextFieldProps } from "@material-ui/core";
-import ClearIcon from '@material-ui/icons/Clear';
+import { IconButton, InputAdornment, TextField, TextFieldProps } from "@mui/material";
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 export const MyInput: React.FC<TextFieldProps> = (props) => {
@@ -18,7 +18,7 @@ export const MyInput: React.FC<TextFieldProps> = (props) => {
 
   return (
     <TextField
-      {...inputProps}
+      size='small'
       inputRef={inputRef}
       onChange={onChange}
       value={value}
@@ -27,6 +27,7 @@ export const MyInput: React.FC<TextFieldProps> = (props) => {
           <IconButton><ClearIcon onClick={clear} /></IconButton>
         </InputAdornment>
       }}
+      {...inputProps}
     />
   )
 };

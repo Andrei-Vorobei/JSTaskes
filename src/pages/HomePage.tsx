@@ -1,34 +1,35 @@
-import { makeStyles } from "@material-ui/core";
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
+import { Box, CSSProperties, Paper } from "@mui/material";
 import { Increment } from '@/components/Increment/Increment';
 import { Palindrome } from "@/components/Palindrome/Palindrome";
-
-const useStyles = makeStyles((theme) => {
-  return {
-    home: {
-      height: '100%',
-      padding: 10,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 20,
-    },
-    paper: {
-      padding: 15,
-    },
-  }
-});
+import { Timer } from "@/components/Timer/Timer";
+import { StringReverse } from "@/components/StringReverse/StringRevers";
 
 export const HomePage: React.FC = () => {
-  const classes = useStyles();
+  const home: CSSProperties = {
+    height: '100%',
+    padding: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+  };
+
+  const paper: CSSProperties = {
+    padding: 2,
+  }
 
   return (
-    <Box className={classes.home}>
-      <Paper elevation={5} classes={{ root: classes.paper }}>
+    <Box sx={ home }>
+      <Paper elevation={5} sx={ paper }>
+        <Timer />
+      </Paper>
+      <Paper elevation={5} sx={ paper }>
         <Increment />
       </Paper>
-      <Paper elevation={5} classes={{ root: classes.paper }}>
+      <Paper elevation={5} sx={ paper }>
         <Palindrome />
+      </Paper>
+      <Paper elevation={5} sx={ paper }>
+        <StringReverse />
       </Paper>
     </Box>
   )

@@ -1,9 +1,8 @@
 import { Link as RouterLink } from 'react-router';
-import cx from 'clsx';
-import { Box, makeStyles, Typography, Link, AppBar, Toolbar, IconButton } from "@material-ui/core";
-import HomeIcon from '@material-ui/icons/Home';
-import InfoIcon from '@material-ui/icons/Info';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Box, CSSProperties, IconButton, Link, Toolbar, Typography } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const navItems = [
   {
@@ -18,38 +17,33 @@ const navItems = [
   },
 ];
 
-
-const useStyles = makeStyles((theme) => {
-  return {
-    navItem: {
-      padding: 10
-    },
-    navLink: {
-      display: 'flex',
-      alignItems: 'center'
-    },
-    navLinks: {
-      display: 'flex',
-      width: '100%',
-      justifyContent: 'end',
-
-    },
-    icon: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingRight: 8,
-    }
-  }
-});
-
-const navBarStyles = {
-  fontWeight: 'bold',
-  color: '#fff'
-}
-
 export const NavBar: React.FC = () => {
-  const classes = useStyles();
 
+  const navItemStyles: CSSProperties = {
+    padding: 1
+  };
+
+  const navBarStyles: CSSProperties = {
+    fontWeight: 'bold',
+    color: '#fff'
+  };
+
+  const navLinkStyles: CSSProperties = {
+    display: 'flex',
+    alignItems: 'center'
+  };
+
+  const iconStyles: CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    paddingRight: 1,
+  };
+
+  const navLinksStyle: CSSProperties = {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'end',
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -58,12 +52,12 @@ export const NavBar: React.FC = () => {
           <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-          <Box className={classes.navLinks}>
+          <Box sx={ navLinksStyle }>
             {navItems.map((item) => {
               return (
-                <Box key={item.title} className={cx(classes.navItem)}>
-                  <Link to={item.url} component={RouterLink} classes={{ root: classes.navLink }}>
-                    <Box className={classes.icon}>
+                <Box key={item.title} sx={ navItemStyles }>
+                  <Link to={item.url} component={RouterLink} sx={ navLinkStyles }>
+                    <Box sx={ iconStyles }>
                       <item.icon fontSize='small' sx={{ color: '#fff' }} />
                     </Box>
                     <Typography sx={ navBarStyles } variant='subtitle2'>
