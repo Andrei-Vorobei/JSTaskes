@@ -7,6 +7,7 @@ import { createTheme, CSSProperties, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { NavBar } from './NavBar';
+import { Box } from '@mui/material';
 
 const theme = createTheme({
   // typography: {
@@ -35,7 +36,7 @@ const containerStyles: CSSProperties = {
   backgroundColor: '#ffffffc0',
   display: 'flex',
   flexDirection: 'column',
-  flexGrow: 1
+  flexGrow: 1,
 };
 
 export const App: React.FC = () => {

@@ -75,8 +75,7 @@ export const CreateTimer: React.FC<CreateTimerType> = ({ addDate }) => {
               <DatePicker
                 value={startDate}
                 onChange={(value: Date) => {
-                  console.log(value);
-                  setStartDate(value)
+                  setStartDate(value);
                 }}
                 format='dd.MM.yyyy'
                 // minDate={new Date()}

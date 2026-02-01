@@ -1,27 +1,30 @@
-import { Suspense } from "react";
-import { RoutType } from "./types/globalTypes";
+import { lazy, Suspense } from "react";
 import { App } from "./components/App";
-import { MagicFrontend } from "./pages/MagicFrontend";
+import { RouteObject } from "react-router";
 
+const LazyMagicFrontend = lazy(() => import('./pages/MagicFrontend'));
 
-export const getRoutes = (): RoutType[] => {
-
-  const routes: RoutType[] = [
+export const getRoutes = (): RouteObject[] => {
+  const routes: RouteObject[] = [
     {
       path: "/",
       element: <App />,
       children: [
         {
-          path: '/magic-frontend',
-          element: <Suspense fallback='Loading...'><MagicFrontend /></Suspense>
+          index: true,
+          element: <Suspense fallback='Loading...'><LazyMagicFrontend /></Suspense>
         },
         {
           path: '/about',
           element: <Suspense fallback='Loading...'><div>ABOUT</div></Suspense>
+        },
+        {
+          path: '*',
+          element: <Suspense fallback='Loading...'><LazyMagicFrontend /></Suspense>
         },
       ]
     },
   ];
 
   return routes;
-}
+};

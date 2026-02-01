@@ -34,3 +34,5 @@ export const MagicFrontend: React.FC = () => {
     </Box>
   )
 };
+
+export default MagicFrontend;
